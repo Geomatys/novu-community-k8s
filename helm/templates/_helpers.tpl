@@ -308,7 +308,7 @@ Return s3 endpoint
 {{- end -}}
 
 {{/*
-Return s3 secretKey
+Return s3 region
 */}}
 {{- define "novu.s3.region" -}}
 {{- if .Values.localstack.enabled -}}
@@ -319,14 +319,34 @@ Return s3 secretKey
 {{- end -}}
 
 {{/*
-Return the MongoDB Secret Name
+Return s3 access key
+*/}}
+{{- define "novu.s3.accessKey" -}}
+{{- if .Values.localstack.enabled -}}
+     {{- printf "test" -}}
+{{- else -}}
+    {{- print .Values.externalS3.accessKey  -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return s3 secret key
+*/}}
+{{- define "novu.s3.secretKey" -}}
+{{- if .Values.localstack.enabled -}}
+     {{- printf "test" -}}
+{{- else -}}
+    {{- print .Values.externalS3.secretKey  -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the S3 Secret Name
 */}}
 {{- define "novu.s3.secretName" -}}
-{{- if .Values.localstack.enabled }}
-    {{- printf "%s" (include "novu.s3.fullname" .) -}}
-{{- else if .Values.externalS3.existingSecret -}}
+{{- if .Values.externalS3.existingSecret -}}
     {{- printf "%s" .Values.externalS3.existingSecret -}}
 {{- else -}}
-    {{- printf "%s-externals3" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" -}}
+    {{- printf "%s" (include "novu.s3.fullname" .) -}}
 {{- end -}}
 {{- end -}}
