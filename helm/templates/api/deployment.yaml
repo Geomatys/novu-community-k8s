@@ -92,7 +92,7 @@ spec:
           {{- end }}
           env:
             - name: NODE_ENV
-              value: {{print .Values.api.env.NODE_ENV | quote }}
+              value: {{ .Values.environment | quote }}
             - name: API_ROOT_URL
               value : {{print  .Values.api.env.API_ROOT_URL | quote }}
             - name: DISABLE_USER_REGISTRATION

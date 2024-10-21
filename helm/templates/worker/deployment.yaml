@@ -92,7 +92,7 @@ spec:
           {{- end }}
           env:
             - name: NODE_ENV
-              value : {{print .Values.api.env.NODE_ENV | quote }}
+              value : {{print .Values.environment | quote }}
             - name: PORT
               value : {{ print .Values.worker.port | quote }}
             - name: MONGO_MIN_POOL_SIZE
